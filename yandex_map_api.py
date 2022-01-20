@@ -1,8 +1,8 @@
 
 import requests
 import json
-ya_geo_key="8cfedac8-f5a9-4a66-a59d-8fe31b9cce8c"
-city="Рогачев"
+from auth_date import ya_geo_key
+# city="Рогачев"
 
 def get_geo_point(city):
     url=f'https://geocode-maps.yandex.ru/1.x?format=json&geocode={city},Беларусь&apikey={ya_geo_key}'#& [sco=<string>]
@@ -39,5 +39,5 @@ def get_geo_point(city):
         # print(geo_tuple)
     return geo_tuple,geo_name,geo_description
 
-ss=get_geo_point(city)
-print(ss)
+# ss=get_geo_point(city)
+# print(ss)

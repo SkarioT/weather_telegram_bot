@@ -1,17 +1,31 @@
 import requests
 import json
 import datetime
+from yandex_map_api import get_geo_point
+from auth_date import api_key_headers
 
-def get_weather():
-    api_key_headers={'X-Yandex-API-Key': '9fb7e010-21c2-4133-93ec-1a6b7f5d95ee'}
-    url=f"https://api.weather.yandex.ru/v2/informers?lat=53.060277&lon=29.994478&lang=ru_RU"
+def get_weather(city):
+    
+    #вызываю функцию, получающую из названия его координаты
+    req_city_geo = get_geo_point(city)
+    if req_city_geo == 0:
+        return f"Неудалость найти город {city}"
+    lat=req_city_geo[0][1]
+    lon=req_city_geo[0][0]
+    city_name =req_city_geo[1]
+    city_description =req_city_geo[2]
+    # print(city_name,city_description)
+    
+    url=f"https://api.weather.yandex.ru/v2/informers?lat={lat}&lon={lon}&lang=ru_RU"
     req = requests.get(url=url,headers=api_key_headers)
+    #сохроняю в файл json
     json_string=req.json()
     with open('weather.json', 'w') as outfile:
         json.dump(json_string, outfile)
 
+    #в это месте стоит переделать логику, и сохронять на пример в БД
 
-
+    #читаю из файла
     with open('weather.json','r') as w:
         weather =json.load(w)
         wether_cur_date =str(datetime.datetime.fromtimestamp(weather.get("now")))
@@ -33,7 +47,7 @@ def get_weather():
         weather_condition = weather['fact']['condition']
         if weather_condition in condition_dict:
             weather_condition= condition_dict[weather_condition]
-            print(weather_condition.title())
+            print(weather_condition)
 
         weather_wind_speed='Скорость ветра '+ str(weather['fact']['wind_speed'])+' м/с'
         print(weather_wind_speed)
@@ -62,4 +76,4 @@ def get_weather():
         weather_humidity = "Влажность воздуха "+str(weather['fact']['humidity'])+" %"
         print(weather_humidity)
 
-
+        return city_name,city_description,wether_cur_date,weather_temp,weather_azuzhenie,weather_condition,weather_wind_speed,weather_wind_gust,weather_wind_dir,weather_pressure_mm,weather_humidity
