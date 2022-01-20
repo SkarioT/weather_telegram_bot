@@ -1,7 +1,7 @@
 
 import requests
 import json
-from auth_date import ya_geo_key
+from auth_data import ya_geo_key
 # city="Рогачев"
 
 def get_geo_point(city):

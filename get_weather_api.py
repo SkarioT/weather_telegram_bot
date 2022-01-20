@@ -2,7 +2,7 @@ import requests
 import json
 import datetime
 from yandex_map_api import get_geo_point
-from auth_date import api_key_headers
+from auth_data import api_key_headers
 
 def get_weather(city):
     
