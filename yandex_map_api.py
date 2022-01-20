@@ -34,10 +34,12 @@ def get_geo_point(city):
         
         
         geo_tuple = str(geo_point).split(" ")
+        lat = geo_tuple[0]
+        lon =geo_tuple[1]
         # print(geo_description)
         # print(geo_name)
         # print(geo_tuple)
-    return geo_tuple,geo_name,geo_description
+    return lat,lon,geo_name,geo_description
 
 # ss=get_geo_point(city)
 # print(ss)

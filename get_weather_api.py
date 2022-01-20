@@ -10,10 +10,10 @@ def get_weather(city):
     req_city_geo = get_geo_point(city)
     if req_city_geo == 0:
         return f"Неудалость найти город {city}"
-    lat=req_city_geo[0][1]
-    lon=req_city_geo[0][0]
-    city_name =req_city_geo[1]
-    city_description =req_city_geo[2]
+    lon=req_city_geo[0]
+    lat=req_city_geo[1]
+    city_name =req_city_geo[2]
+    city_description =req_city_geo[3]
     # print(city_name,city_description)
     
     url=f"https://api.weather.yandex.ru/v2/informers?lat={lat}&lon={lon}&lang=ru_RU"
