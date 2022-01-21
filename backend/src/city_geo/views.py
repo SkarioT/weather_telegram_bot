@@ -27,21 +27,30 @@ class NewCity(APIView):
         city = CreateCitySerializator(data=request.data)
         #проверяю данные на валидность, если не валидны то метод create в CreateCitySerializator не вызовиться
         if city.is_valid():
+            #при сохранении
             city.save()
             return Response(status=201)
         else:
             print("данные не валидны")
             return Response(f"invalid request {request.data}",status=400)
             
-#проверю есть ли в БД уже запись по переданному к АПИ городу
+#проверю есть ли в БД уже такая запись, если есть - возвращаю её значение
 class CityCheck(APIView):
     def post(self,request):
-        # print("request.data: ",request.data,"\n_______")
-        city_check = City_Geo.objects.filter(geo_name=request.data.get("geo_name"))
-        if city_check.exists() :
-            serialized_city = CitySerializator(city_check,many=True)
-            # print("serialized_city: ",serialized_city)
-            return Response(data=serialized_city.data)
+        print("request.data: ",request.data,"\n_______")
+        serialized_city_req = CityCheckSerializator(data=request.data)
+        #проверяю валидацию
+        print(serialized_city_req.is_valid())
+        if serialized_city_req.is_valid():
+            print("данные валидны")
+            valid_geo_name=request.data.get("geo_name")
+            city_check = City_Geo.objects.filter(geo_name=valid_geo_name)
+            if city_check.exists() :
+                print("Данные валидны и есть в базе\n\n\n")
+                serialized_city = CitySerializator(city_check,many=True)
+                return Response(data=serialized_city.data)
+            else:
+                return Response(f"Not Found city {valid_geo_name} in DB",status=400)
         else:
-            # print("данные не валидны")
-            return Response(f"invalid request {request.data}",status=400)
+            print("данные не валидны")
+            return Response(serialized_city_req.errors,status=400)
