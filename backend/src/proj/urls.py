@@ -21,5 +21,6 @@ from city_geo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('city_geo/', views.City.as_view()),
-    path('create_city/',views.NewCity.as_view())
+    path('create_city/',views.NewCity.as_view()),
+    path('city_check/',views.CityCheck.as_view())
 ]
