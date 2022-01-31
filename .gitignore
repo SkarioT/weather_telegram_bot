@@ -26,6 +26,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 auth_data.py
+.pg-env
+persistentdata/*
+locals_auth.py
 
 MANIFEST
 

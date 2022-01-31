@@ -1,0 +1,25 @@
+version: "3.9"
+
+services: 
+  nginx:
+      restart: always
+      build:
+          context: ./nginx
+      ports:
+      - "80:80" # port exposed to outside world.
+  django-backend:
+    restart: always
+    build:
+      context: ./backend # django service folder
+    image: django-backend-img
+    # ports:
+    #   - "8000:8000"
+    volumes:
+      - ./persistentdata/static:/var/www/static # <--here
+      - ./persistentdata/media:/var/www/media # <--here
+  postgresql-db:
+    restart: always
+    image: postgres
+    env_file: ./postgresql-db/.pg-env 
+    volumes:
+      - ./persistentdata/db:/var/lib/postgresql/data # <-- add this

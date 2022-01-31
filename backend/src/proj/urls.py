@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from city_geo import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -23,4 +25,4 @@ urlpatterns = [
     path('city_geo/', views.City.as_view()),
     path('create_city/',views.NewCity.as_view()),
     path('city_check/',views.CityCheck.as_view())
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
