@@ -2,11 +2,15 @@ version: "3.9"
 
 services: 
   nginx:
+      image: nginx
       restart: always
       build:
           context: ./nginx
       ports:
       - "80:80" # port exposed to outside world.
+      volumes:
+        - ./persistentdata/static:/var/www/static # <--here
+        - ./persistentdata/media:/var/www/media # <--here
   django-backend:
     restart: always
     build:
