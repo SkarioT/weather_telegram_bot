@@ -14,7 +14,7 @@ def get_weather(city):
     lat=req_city_geo[1]
     city_name =req_city_geo[2]
     city_description =req_city_geo[3]
-    # print(city_name,city_description)
+    print(city_name,city_description)
     
     url=f"https://api.weather.yandex.ru/v2/informers?lat={lat}&lon={lon}&lang=ru_RU"
     req = requests.get(url=url,headers=api_key_headers)
@@ -23,7 +23,7 @@ def get_weather(city):
     with open('weather.json', 'w') as outfile:
         json.dump(json_string, outfile)
 
-    #в это месте стоит переделать логику, и сохронять на пример в БД
+    #в это месте стоит переделать логику, и сохронять последние запросы в БД
 
     #читаю из файла
     with open('weather.json','r') as w:
@@ -38,7 +38,7 @@ def get_weather(city):
         print(weather_azuzhenie)
         
         weather_icon = weather['fact']['icon']
-        url_ico=f'https://yastatic.net/weather/i/icons/funky/dark/{weather_icon}.svg'
+        # url_ico=f'https://yastatic.net/weather/i/icons/funky/dark/{weather_icon}.svg'
 
         condition_dict ={'clear':'ясно','partly-cloudy':'малооблачно','cloudy' : 'облачно с прояснениями','overcast' : 'пасмурно','drizzle' : 'морось','light-rain': 'небольшой дождь',
                     'rain': "дождь",'moderate-rain' : 'умеренно сильный дождь','heavy-rain': 'сильный дождь','continuous-heavy-rain' : 'длительный сильный дождь',
