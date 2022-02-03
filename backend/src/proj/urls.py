@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('city_geo/', views.City.as_view()),
     path('create_city/',views.NewCity.as_view()),
-    path('city_check/',views.CityCheck.as_view())
+    path('city_check/',views.CityCheck.as_view()),
+    path('city_weather_create/',views.NewCityWeather.as_view()),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

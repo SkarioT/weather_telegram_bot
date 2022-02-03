@@ -23,7 +23,7 @@ class City_Geo (models.Model):
         return self.geo_name +" "+ self.geo_lat+' '+self.geo_lon+' '+self.geo_description
 
 class City_weather(models.Model):
-    # wether_cur_date,
+    # weather_cur_date,
     # weather_temp,
     # weather_azuzhenie,
     # weather_condition,
@@ -38,8 +38,8 @@ class City_weather(models.Model):
         on_delete=models.CASCADE
         )
 
-    wether_cur_date=models.CharField(
-        verbose_name="wether_cur_date",
+    weather_cur_date=models.CharField(
+        verbose_name="weather_cur_date",
         max_length=50
     )
     weather_temp=models.CharField(
@@ -81,4 +81,4 @@ class City_weather(models.Model):
     #     default='Информация об авторе скоро будет добавлена на сайт. Сделать ее более полной и интересной помогут объективные отзывы тех, кто хорошо знаком с творчеством и фактами биографии данного автора. Оставляйте свои комментарии, делитесь впечатлениями и вступайте в дискуссии — это поможет другим сделать выбор.'
     # )
     def __str__(self):
-        return f"{self.city.geo_name} {self.wether_cur_date} {self.weather_temp}"
+        return f"{self.city.geo_name} {self.weather_cur_date} {self.weather_temp}"

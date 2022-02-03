@@ -1,11 +1,10 @@
 
 import requests
-from auth_data import ya_geo_key
+from auth_data import ya_geo_key,server_address
 
 
 def get_geo_point(city):
-    server_address ="http://127.0.0.1"
-    server_address ="http://127.0.0.1:8000"
+
 
     drf_check_url = f"{server_address}/city_check/"
     data_req = {"geo_name": f"{city}"}
@@ -13,27 +12,34 @@ def get_geo_point(city):
 
     if "Not Found city" not in drf_req.text:
         print("ГОРОД НАЙДЕН В БАЗЕ")
-        # print(drf_req.json())
+        
         drf_req_json=drf_req.json()[0]
+        
+        # print("drf_req_json",drf_req_json)
+        geo_city_pk=drf_req_json.get("pk")
         geo_name =drf_req_json.get("geo_name")
         geo_lat =drf_req_json.get("geo_lat")
         geo_lon =drf_req_json.get("geo_lon")
         geo_description =drf_req_json.get("geo_description")
-        return geo_lat,geo_lon,geo_name,geo_description
+        weather =drf_req_json.get("weather")
+        
+        if len(weather)==0:
+            print("ДЛЯ ГОРОДА В БАЗЕ НЕТ ИНФОРМАЦИИ ПО ПОГОДЕ")
+        return geo_lat,geo_lon,geo_name,geo_description,weather,geo_city_pk
     else:
         print("ГОРОДА НЕТ В БАЗЕ, ВЫПОЛНЯЮ ЗАПРОС ")
         url=f'https://geocode-maps.yandex.ru/1.x?format=json&geocode={city},Беларусь&apikey={ya_geo_key}'
-        print(url)
+        # print(url)
         req_geo = requests.get(url)
         json_string=req_geo.json()
-        # print(json_string)
+        
 
         geo_point =json_string["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"]
         #дэфолднаые координаты для всякого города, которого невозможно найти в Беларуси
         if "27.701402 52.858254" in geo_point:
-            code =0
+            code = 0
             return code
-            #return f"Не удалось найти {city},Беларусь"
+            
         try:
             geo_name =json_string["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]['name']
         except:
@@ -47,9 +53,7 @@ def get_geo_point(city):
         geo_tuple = str(geo_point).split(" ")
         geo_lat = geo_tuple[0]
         geo_lon =geo_tuple[1]
-        # print(geo_description)
-        # print(geo_name)
-        # print(geo_tuple)
+
 
         #после получения данных из апи яндекса, заношу их в свою БД
         drf_create_url =f"{server_address}/create_city/"
@@ -61,10 +65,18 @@ def get_geo_point(city):
                     }
         # print("Данные для отправки к API create\n",drf_create_data)
         dfr_create_req = requests.post(drf_create_url,data=drf_create_data)
-        print("city get_or_create",dfr_create_req)
-        print(dfr_create_req.text)
+       
+        drf_req_json=dfr_create_req.json()
+        
+        # print("drf_req_json",drf_req_json)
+        geo_city_pk=drf_req_json.get("id")
+        # geo_name =drf_req_json.get("geo_name")
+        # geo_lat =drf_req_json.get("geo_lat")
+        # geo_lon =drf_req_json.get("geo_lon")
+        # geo_description =drf_req_json.get("geo_description")
+        weather=[]
+        
+        return geo_lat,geo_lon,geo_name,geo_description,weather,geo_city_pk
 
-    return geo_lat,geo_lon,geo_name,geo_description
 
-# ss=get_geo_point(city)
-# print(ss)
+
