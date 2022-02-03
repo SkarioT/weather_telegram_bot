@@ -29,6 +29,7 @@ auth_data.py
 .pg-env
 persistentdata/*
 locals_auth.py
+.envTGB
 
 MANIFEST
 

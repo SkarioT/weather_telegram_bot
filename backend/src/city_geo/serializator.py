@@ -1,7 +1,7 @@
 
 from django.forms import fields
 from rest_framework import serializers
-from .models import City_Geo
+from .models import City_Geo, City_weather
 
 #добавление данных по апи
 class CreateCitySerializator(serializers.ModelSerializer):
@@ -33,11 +33,21 @@ class CitySerializator(serializers.ModelSerializer):
     class Meta:
         model = City_Geo
         fields = ['pk','geo_name','geo_lat','geo_lon','geo_description']#,'my_field']
-    
+        
+
+
 #класс требуется для первичной валидации запроса, дляя дальнейшего получения по имени города, его координат
 class CityCheckSerializator(serializers.ModelSerializer):
+
     class Meta:
         model = City_Geo
         fields = ['geo_name']#,'my_field']
+
+class CityCheckWeatherSerializator(serializers.ModelSerializer):
+    city = serializers.SlugRelatedField(slug_field="geo_name",read_only=True)
+    class Meta:
+        model = City_weather
+        fields = '__all__'
+
 
 

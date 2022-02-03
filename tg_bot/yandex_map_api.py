@@ -5,6 +5,7 @@ from auth_data import ya_geo_key
 
 def get_geo_point(city):
     server_address ="http://127.0.0.1"
+    server_address ="http://127.0.0.1:8000"
 
     drf_check_url = f"{server_address}/city_check/"
     data_req = {"geo_name": f"{city}"}

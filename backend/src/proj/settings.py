@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -79,14 +80,21 @@ WSGI_APPLICATION = 'proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': locals_auth.PG_NAME,
+#         'USER': locals_auth.PG_USER,
+#         'PASSWORD': locals_auth.PG_PASSWORD,
+#         'HOST': locals_auth.PG_HOST,
+#         'PORT': '', # default
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': locals_auth.PG_NAME,
-        'USER': locals_auth.PG_USER,
-        'PASSWORD': locals_auth.PG_PASSWORD,
-        'HOST': locals_auth.PG_HOST,
-        'PORT': '', # default
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -127,11 +135,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/static'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/var/www/media'
+# STATIC_URL = '/static/'
+# STATIC_ROOT = '/var/www/static'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = '/var/www/media'
 
+STATIC_URL = '/static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
