@@ -38,14 +38,18 @@ class City_weather(models.Model):
         on_delete=models.CASCADE
         )
 
+    weather_cur_date = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=False
+    )
     weather_cur_date=models.CharField(
         verbose_name="weather_cur_date",
         max_length=50
     )
-    weather_temp=models.CharField(
-        verbose_name="weather_temp",
-        max_length=50
-    )
+    # weather_temp=models.CharField(
+    #     verbose_name="weather_temp",
+    #     max_length=50
+    # )
     weather_azuzhenie=models.CharField(
         verbose_name="weather_azuzhenie",
         max_length=50

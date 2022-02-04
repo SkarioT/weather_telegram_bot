@@ -42,21 +42,19 @@ class CreateCityWeatherSerializator(serializers.ModelSerializer):
                 ]
     
     def create(self, validated_data):
-        print("validated_data:",validated_data)
+        # print("validated_data:",validated_data)
         #что бы уменьшить кол-во обрабочиков, сделал через get_or_create
-        #по умолчанию, подразумевается, что города(название) в базе будут уникальными, соответствено, при запросе на добавление, 
-        #если город уже есть - просто верну его обратно, если нет - создам
+        #по умолчанию, подразумевается, что ПОГОДА ДЛЯ ГОРОДА в базе будут уникальными, соответствено, при запросе на добавление, 
+        #если ПОГОДА ДЛЯ ГОРОДА уже есть - просто верну его обратно, если нет - создам
         city,create = City_weather.objects.get_or_create(
             weather_cur_date=validated_data.get('weather_cur_date',None),
             weather_temp=validated_data.get('weather_temp',None),
             weather_azuzhenie=validated_data.get('weather_azuzhenie',None),
             weather_condition=validated_data.get('weather_condition',None),
-
             weather_wind_speed=validated_data.get('weather_wind_speed',None),
             weather_wind_gust=validated_data.get('weather_wind_gust',None),
             weather_wind_dir=validated_data.get('weather_wind_dir',None),
             weather_pressure_mm=validated_data.get('weather_pressure_mm',None),
-
             weather_humidity=validated_data.get('weather_humidity',None),
             city=validated_data.get('city',None),
         )

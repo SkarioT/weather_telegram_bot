@@ -27,7 +27,7 @@ from . import locals_auth
 SECRET_KEY = locals_auth.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1','http://*.127.0.0.1']
@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': locals_auth.PG_NAME,
-#         'USER': locals_auth.PG_USER,
-#         'PASSWORD': locals_auth.PG_PASSWORD,
-#         'HOST': locals_auth.PG_HOST,
-#         'PORT': '', # default
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': locals_auth.PG_NAME,
+        'USER': locals_auth.PG_USER,
+        'PASSWORD': locals_auth.PG_PASSWORD,
+        'HOST': locals_auth.PG_HOST,
+        'PORT': '', # default
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
