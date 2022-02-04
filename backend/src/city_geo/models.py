@@ -46,7 +46,6 @@ class City_weather(models.Model):
         verbose_name="weather_temp",
         max_length=50
     )
-
     weather_azuzhenie=models.CharField(
         verbose_name="weather_azuzhenie",
         max_length=50

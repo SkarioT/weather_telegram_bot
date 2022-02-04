@@ -27,7 +27,7 @@ from . import locals_auth
 SECRET_KEY = locals_auth.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1','http://*.127.0.0.1','http://ec2-3-71-86-139.eu-central-1.compute.amazonaws.com']
