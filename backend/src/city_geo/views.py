@@ -52,12 +52,12 @@ class NewCityWeather(APIView):
 #проверю есть ли в БД уже такая запись, если есть - возвращаю её значение
 class CityCheck(APIView):
     def post(self,request):
-        print("request.data: ",request.data,"\n_______")
+        print("request.data: ",request.data)
         serialized_city_req = CityCheckSerializator(data=request.data)
         #проверяю валидацию
         # print(serialized_city_req.is_valid())
         if serialized_city_req.is_valid():
-            print("данные валидны")
+            # print("данные валидны")
             valid_geo_name=request.data.get("geo_name")
             city_check = City_Geo.objects.filter(geo_name=valid_geo_name)
             if city_check.exists() :

@@ -92,4 +92,17 @@ def get_weather(city):
         return city_name,city_description,weather_cur_date,weather_temp,weather_azuzhenie,weather_condition,weather_wind_speed,weather_wind_gust,weather_wind_dir,weather_pressure_mm,weather_humidity
     else:
         print("данные по погоде для города есть базе, возвращаю их")
+        date_time_on_db = datetime.datetime.strptime(weather[0].get("weather_cur_date"), '%Y-%m-%d %H:%M:%S')
+        cdt = datetime.datetime.now()
+        res_time = cdt - date_time_on_db
+        
+        if res_time.seconds > 1800:
+            print("прошло больше получаса")
+
+
+            #написать сериализатор и виюшку для обновления информации,т.к. она устарела
+
+
+        else:
+            print("Секунд прошло с последнего обновления: ",res_time.seconds)
         return city_name,city_description,weather

@@ -30,7 +30,7 @@ SECRET_KEY = locals_auth.SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','https://*.127.0.0.1','http://*.127.0.0.1','http://ec2-3-71-86-139.eu-central-1.compute.amazonaws.com']
 
 
 # Application definition
@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'proj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': locals_auth.PG_NAME,
-#         'USER': locals_auth.PG_USER,
-#         'PASSWORD': locals_auth.PG_PASSWORD,
-#         'HOST': locals_auth.PG_HOST,
-#         'PORT': '', # default
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': locals_auth.PG_NAME,
+        'USER': locals_auth.PG_USER,
+        'PASSWORD': locals_auth.PG_PASSWORD,
+        'HOST': locals_auth.PG_HOST,
+        'PORT': '', # default
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -135,13 +135,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = '/var/www/static'
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = '/var/www/media'
-
 STATIC_URL = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR,'static')
+STATIC_ROOT = '/var/www/static'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/media'
+
+# STATIC_URL = '/static/'
+# STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
